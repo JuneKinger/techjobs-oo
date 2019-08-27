@@ -10,6 +10,7 @@ import java.util.ArrayList;
  */
 public class JobFieldData<T extends JobField> {
 
+    // allFields = ArrayList - size of each column eg location size 8 and Location object has 0 "location name", 1 "location name" etc
     private ArrayList<T> allFields = new ArrayList<>();
 
     public ArrayList<T> findAll() {

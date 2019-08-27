@@ -9,6 +9,7 @@ public class Job {
     private static int nextId = 1;
 
     private String name;
+    // classes now represent each of the properties
     private Employer employer;
     private Location location;
     private PositionType positionType;

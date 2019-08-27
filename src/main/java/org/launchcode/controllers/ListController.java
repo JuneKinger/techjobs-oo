@@ -19,25 +19,39 @@ import java.util.HashMap;
 @RequestMapping(value = "list")
 public class ListController {
 
+    // first time it creates a new (empty) jobData object
+
     private JobData jobData = JobData.getInstance();
 
     @RequestMapping(value = "")
     public String list(Model model) {
+
+        // fields have 0="EMPLOYER", 1="lOCATION" etc from JobFieldtype (enum type)
+        // .values() gets enum fields from JobFieldType
         JobFieldType[] fields = JobFieldType.values();
         model.addAttribute("fields", fields);
+        // View All
+        //
+        //    Employer
+        //    Location
+        //    Skill
+        //    Position Type
+        //    All
         return "list";
     }
 
+    // if a specific column type is chosen above:
     @RequestMapping(value = "values")
     public String listColumnValues(Model model, @RequestParam JobFieldType column) {
 
+        // if all is chosen, goes to list/all handler below - value="all" below - to display all Jobs
         if (column.equals(JobFieldType.ALL)) {
             return "redirect:/list/all";
         }
 
 
         ArrayList<? extends JobField> items;
-
+        // get all jobs for column chosen
         switch(column) {
             case EMPLOYER:
                 items = jobData.getEmployers().findAll();
@@ -60,6 +74,7 @@ public class ListController {
         return "list-column";
     }
 
+    // find by column and value
     @RequestMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model,
             @RequestParam JobFieldType column, @RequestParam String name) {

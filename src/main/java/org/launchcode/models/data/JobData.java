@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 public class JobData {
 
+    // initializes all objects to 0 or null:
+    // jobs, employers, locations, coreCompetencies, postionTypes
     private ArrayList<Job> jobs = new ArrayList<>();
     private static JobData instance;
 
@@ -25,13 +27,21 @@ public class JobData {
 
     public static JobData getInstance() {
         if (instance == null) {
+            // goes to JobData above and loads jobs from JobDataImporter
+            // has jobs = size 98 (all jobs)
+            // employers = size 70
+            // locations = size 8
+            // etc
             instance = new JobData();
         }
+        // instance has objects jobs (ArrayList size 98), employers (JobFieldData > object of column name with value eg (0="WWT"), id = int value
+        // return jumps to JobController.java
         return instance;
     }
 
     public Job findById(int id) {
         for (Job job : jobs) {
+            // getId() is the getter getID() from Job class
             if (job.getId() == id)
                 return job;
         }

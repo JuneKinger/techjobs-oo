@@ -11,6 +11,7 @@
         <h2>View All</h2>
         <ul>
             <li th:each="field : ${fields}">
+                <!-- fields object has enum column names -->
                 <a th:href="@{/list/values(column=${field})}" th:text="${field.name}"></a>
             </li>
         </ul>

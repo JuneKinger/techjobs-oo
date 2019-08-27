@@ -28,9 +28,29 @@ public class JobForm {
         Don't forget to add getters and setters
      */
 
+    @NotNull
+    @Size(min=1, message = "Employers may not be empty")
     private ArrayList<Employer> employers;
+
+    @NotNull
+    private int locationId;
+
+    @NotNull
+    @Size(min=1, message = "Location may not be empty")
     private ArrayList<Location> locations;
+
+    @NotNull
+    private int coreCompetencyId;
+
+    @NotNull
+    @Size(min=1, message = "Core competencies may not be empty")
     private ArrayList<CoreCompetency> coreCompetencies;
+
+    @NotNull
+    private int positionTypeId;
+
+    @NotNull
+    @Size(min=1, message = "Position types may not be empty")
     private ArrayList<PositionType> positionTypes;
 
     public JobForm() {
@@ -42,6 +62,9 @@ public class JobForm {
         */
 
         employers = jobData.getEmployers().findAll();
+        locations = jobData.getLocations().findAll();
+        coreCompetencies = jobData.getCoreCompetencies().findAll();
+        positionTypes = jobData.getPositionTypes().findAll();
 
     }
 
@@ -68,6 +91,13 @@ public class JobForm {
     public void setEmployers(ArrayList<Employer> employers) {
         this.employers = employers;
     }
+    public int getLocationId() {
+        return locationId;
+    }
+
+    public void setLocationId(int locationId) {
+        this.locationId = locationId;
+    }
 
     public ArrayList<Location> getLocations() {
         return locations;
@@ -76,6 +106,13 @@ public class JobForm {
     public void setLocations(ArrayList<Location> locations) {
         this.locations = locations;
     }
+    public int getCoreCompetencyId() {
+        return coreCompetencyId;
+    }
+
+    public void setCoreCompetecyId(int coreCompetencyId) {
+        this.coreCompetencyId = coreCompetencyId;
+    }
 
     public ArrayList<CoreCompetency> getCoreCompetencies() {
         return coreCompetencies;
@@ -83,6 +120,14 @@ public class JobForm {
 
     public void setCoreCompetencies(ArrayList<CoreCompetency> coreCompetencies) {
         this.coreCompetencies = coreCompetencies;
+    }
+
+    public int getPositionTypeId() {
+        return positionTypeId;
+    }
+
+    public void setPositionTypeId(int positionTypeId) {
+            this.positionTypeId = positionTypeId;
     }
 
     public ArrayList<PositionType> getPositionTypes() {
