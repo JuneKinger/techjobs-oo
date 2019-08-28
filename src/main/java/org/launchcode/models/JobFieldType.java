@@ -3,7 +3,7 @@ package org.launchcode.models;
 /**
  * Created by LaunchCode
  */
-// enum that enables view and controller layer to easily ask for data relaged to
+// enum that enables view and controller layer to easily ask for data related to
 // a specific job field or to all fields
 public enum JobFieldType {
 

@@ -41,7 +41,7 @@ public class JobData {
 
     public Job findById(int id) {
         for (Job job : jobs) {
-            // getId() is the getter getID() from Job class
+            // getId() is the getter getID() presetnt in Job class
             if (job.getId() == id)
                 return job;
         }

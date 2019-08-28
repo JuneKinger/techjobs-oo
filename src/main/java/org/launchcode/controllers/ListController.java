@@ -29,18 +29,15 @@ public class ListController {
         // fields have 0="EMPLOYER", 1="lOCATION" etc from JobFieldtype (enum type)
         // .values() gets enum fields from JobFieldType
         JobFieldType[] fields = JobFieldType.values();
+
+        // send to the "list" view
         model.addAttribute("fields", fields);
-        // View All
-        //
-        //    Employer
-        //    Location
-        //    Skill
-        //    Position Type
-        //    All
+
         return "list";
     }
 
-    // if a specific column type is chosen above:
+    // from list.html:
+    // eg. http://localhost:8080/list/values?column=EMPLOYER
     @RequestMapping(value = "values")
     public String listColumnValues(Model model, @RequestParam JobFieldType column) {
 
@@ -49,7 +46,9 @@ public class ListController {
             return "redirect:/list/all";
         }
 
-
+        // ArrayList<? means that it is an arrayList of exactly ONE type that extends JobField
+        // So you can be sure, that when you call get method, you'll get something that is of type
+        // JobField only since you don't know upfront what ArrayList will be
         ArrayList<? extends JobField> items;
         // get all jobs for column chosen
         switch(column) {
@@ -67,6 +66,7 @@ public class ListController {
                 items = jobData.getPositionTypes().findAll();
         }
 
+        // getNane() gets String name= as above
         model.addAttribute("title", "All " + column.getName() + " Values");
         model.addAttribute("column", column);
         model.addAttribute("items", items);
@@ -74,13 +74,15 @@ public class ListController {
         return "list-column";
     }
 
-    // find by column and value
+    // find by column and value:
+    // http://localhost:8080/list/jobs?column=EMPLOYER&name=WWT
     @RequestMapping(value = "jobs")
     public String listJobsByColumnAndValue(Model model,
             @RequestParam JobFieldType column, @RequestParam String name) {
 
         ArrayList<Job> jobs = jobData.findByColumnAndValue(column, name);
 
+        // Jobs With Employer: WWT
         model.addAttribute("title", "Jobs with " + column.getName() + ": " + name);
         model.addAttribute("jobs", jobs);
 

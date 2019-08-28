@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -32,11 +34,14 @@ public class JobController {
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String add(Model model) {
+
         model.addAttribute(new JobForm());
         return "new-job";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
+
+    // JobForm model comes in from the view which now has to be validated
     public String add(Model model, @Valid JobForm jobForm, Errors errors) {
 
         // TODO #6 - Validate the JobForm model, and if valid, create a
@@ -44,15 +49,23 @@ public class JobController {
         // redirect to the job detail view for the new Job.
 
         if (errors.hasErrors()) {
-            model.addAttribute(new JobForm());
+            return "new-job";
         }
-        model.addAttribute(new JobForm());
-        System.out.println(jobForm.getName());
-        // adds a new job to jobData and then redirects to index where
-        //job-detail is rendered
-       //model.addAttribute(new JobForm());
-        //jobData.add(newJob);
-        return "";
+
+        Job newJob = new Job(
+                jobForm.getName(),
+                // Get the input via getter getEmployerId from jobForm and findById(getEmployers) method from jobData object
+                jobData.getEmployers().findById(jobForm.getEmployerId()),
+                jobData.getLocations().findById(jobForm.getLocationId()),
+                jobData.getPositionTypes().findById(jobForm.getPositionTypeId()),
+                jobData.getCoreCompetencies().findById(jobForm.getCoreCompetencyId()));
+
+        // add job to jobData
+        jobData.add(newJob);
+
+        model.addAttribute("job", newJob);
+
+        return "redirect:/job?id=" + newJob.getId();
 
     }
 }

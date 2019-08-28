@@ -13,6 +13,7 @@ import java.util.ArrayList;
 /**
  * Created by LaunchCode
  */
+
 public class JobForm {
 
     @NotNull
@@ -28,33 +29,27 @@ public class JobForm {
         Don't forget to add getters and setters
      */
 
-    @NotNull
-    @Size(min=1, message = "Employers may not be empty")
     private ArrayList<Employer> employers;
 
     @NotNull
     private int locationId;
 
-    @NotNull
-    @Size(min=1, message = "Location may not be empty")
     private ArrayList<Location> locations;
 
     @NotNull
     private int coreCompetencyId;
 
-    @NotNull
-    @Size(min=1, message = "Core competencies may not be empty")
     private ArrayList<CoreCompetency> coreCompetencies;
 
     @NotNull
     private int positionTypeId;
 
-    @NotNull
-    @Size(min=1, message = "Position types may not be empty")
     private ArrayList<PositionType> positionTypes;
 
     public JobForm() {
 
+        // instantiate the jobData class with getter getInstance() from JobData class
+        // Employer, location, skill, position type
         JobData jobData = JobData.getInstance();
 
         /*
@@ -110,7 +105,7 @@ public class JobForm {
         return coreCompetencyId;
     }
 
-    public void setCoreCompetecyId(int coreCompetencyId) {
+    public void setCoreCompetencyId(int coreCompetencyId) {
         this.coreCompetencyId = coreCompetencyId;
     }
 
